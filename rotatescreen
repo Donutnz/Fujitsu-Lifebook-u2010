@@ -1,0 +1,21 @@
+#!/bin/bash
+
+targ="LVDS-1"
+rot="normal"
+
+#Check if the user has specified an orientation
+if [[ $# > 0 ]]; then
+	rot=$1
+else
+	#If no orientation entered, just switch between inverted and normal.
+
+	#Check if the screen is currently inverted. This is really pretty hacky.
+	if [[ $(xrandr -q | egrep "inverted \(" | wc -l) == 0 ]]; then
+		rot="inverted"
+	else
+		rot="normal"
+	fi
+fi
+
+#Run the command to change screen orientation.
+$(xrandr --output $targ --rotation $rot)

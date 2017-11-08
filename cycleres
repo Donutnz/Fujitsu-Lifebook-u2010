@@ -1,0 +1,25 @@
+#!/bin/bash
+
+res="800x600"
+
+if [[ $(xrandr -q | egrep "current 1280 x 800" | wc -l) == 1 ]]; then
+	res="800x600"
+fi
+
+if [[ $(xrandr -q | egrep "current 800 x 600" | wc -l) == 1 ]]; then
+	res="640x480"
+fi
+
+if [[ $(xrandr -q | egrep "current 640 x 480" | wc -l) == 1 ]]; then
+	res="1280x800"
+fi
+
+#Execute the change
+$(xrandr --output LVDS-1 --mode $res)
+
+#Tell the user
+$(notify-send $res)
+
+
+
+#Written by Donutnz
